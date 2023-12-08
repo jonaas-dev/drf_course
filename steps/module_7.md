@@ -1,4 +1,5 @@
 # Django Rest Framework (DRF) Course - Module 7
+
 This is my DRF course. I hope you like it.
 
 > These notes follow on from steps/module_6.md
@@ -6,7 +7,9 @@ This is my DRF course. I hope you like it.
 ***
 
 ## Current root directory
+
 Your root directory should look like the following.
+
 ```
 drf_course\  <--This is the root directory
     backend\
@@ -60,12 +63,13 @@ drf_course\  <--This is the root directory
     >README.md
     >server.py
 ```
+
 If in doubt, run the following git commands:
+
 ```
 git checkout module_7
 git pull origin module_7
 ```
-
 
 ## Steps/Commands
 
@@ -77,7 +81,7 @@ Lets get started.
 
 1) Viewsets - Open /ecommerce/views.py and add the following code.
 
-```
+```python
 from json import JSONDecodeError
 from django.http import JsonResponse
 from .serializers import ItemSerializer, OrderSerializer
@@ -141,7 +145,7 @@ class OrderViewSet(
 
 2) Routers - Go ahead and open drf_course/urls.py and replace the code with the following.
 
-```
+```python
 from django.urls import path
 from django.contrib import admin
 from core import views as core_views
@@ -167,7 +171,9 @@ urlpatterns += [
 ***
 
 ## Root directory
+>
 >Note: If all went well, your root directory should now look like this
+
 ```
 drf_course\  <--This is the root directory
     backend\
