@@ -1,4 +1,5 @@
 # Django Rest Framework (DRF) Course - Module 2
+
 This is my DRF course. I hope you like it.
 
 > These notes follow on from steps/module_1.md
@@ -6,8 +7,10 @@ This is my DRF course. I hope you like it.
 ***
 
 ## Current root directory
+
 Your root directory should look like the following.
-```
+
+```bash
 drf_course\  <--This is the root directory
     backend\
         docker\
@@ -33,18 +36,21 @@ drf_course\  <--This is the root directory
     >README.md
     >server.py
 ```
+
 If in doubt, run the following git commands:
-```
+
+```bash
 git checkout module_2
 git pull origin module_2
 ```
 
 ## Steps/Commands
+>
 >Note: Please 'cd' into the root directory and fire up your virtual environment!
 
 "Django makes it easier to build better web apps more quickly and with less code."
 
-In this module, we will be creating a Django application for our project. A Django application is a Python package that is specifically intended for use in a Django project. An application may use common Django conventions, such as having models, tests, urls, and views submodules. 
+In this module, we will be creating a Django application for our project. A Django application is a Python package that is specifically intended for use in a Django project. An application may use common Django conventions, such as having models, tests, urls, and views submodules.
 
 We will have 2 applications in our project:
 The first will be core. This application will hold the logic for our contact us endpoint.
@@ -52,7 +58,9 @@ The second will be ecommerce. This app will hold the logic for our items and ord
 Lets go ahead and create the core application.
 
 1) Applications - Open a terminal and use the following command to start a new application.
-```
+
+```bash
+# backend directory
 python manage.py startapp core
 ```
 
@@ -60,7 +68,7 @@ python manage.py startapp core
 
 imports: Replace the current import section with the following snippet of code. It will give us access to our environment variables.
 
-```
+```bash
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -68,14 +76,16 @@ load_dotenv()
 ```
 
 variables: Replace ALLOWED_HOSTS, SECRET_KEY and DEBUG with the following snippet.
-```
+
+```bash
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = int(os.environ.get("DEBUG", default=0))
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 ```
 
 installed apps: Django will only know to include our new app in the project when we register it. Open drf_course/settings.py and register the new application in INSTALLED_APPS. Replace the current settings with the following snippet.
-```
+
+```bash
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -89,9 +99,10 @@ INSTALLED_APPS = [
     'core', # New app
 ]
 ```
+
 DRF: We can now add the following variable to our project to access DRF features.
 
-```
+```bash
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_PARSER_CLASSES': (
@@ -119,7 +130,7 @@ REST_FRAMEWORK = {
 
 3) URL's - A clean, elegant URL scheme is an important detail in a high-quality web application. Django lets you design URLs however you want, with no framework limitations. To design URLs for an app, you create a Python module informally called a URLconf (URL configuration). This module is pure Python code and is a mapping between URL path expressions to Python functions (your views). Go ahead and open drf_course/urls.py (URLconf)and wire up the core application urls. Replace the code with the following snippet.
 
-```
+```python
 from django.urls import path
 from django.contrib import admin
 from rest_framework import routers
@@ -136,13 +147,15 @@ urlpatterns += [
 4) Migrations - Migrations are Django’s way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema. They’re designed to be mostly automatic, but you’ll need to know when to make migrations and when to run them. A new instance will always have a whole bunch of migrations waiting to be migrated. You can do this by running the following commands.
 
 > Note: We are using the default db.sqlite3 database.
-```
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
 You should see this log similar to the following.
-```
+
+```bash
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, sessions
 Running migrations:
@@ -167,12 +180,14 @@ Running migrations:
 ```
 
 5) Local server - Django has a built in development server which is a lightweight web server written purely in Python. Django's development server allows us to develop things rapidly, without having to deal with configuring a production server – such as Apache – until you’re ready for production. Use the following command to start a local development server
-```
+
+```bash
 python manage.py runserver
 ```
 
 You should see this log.
-```
+
+```bash
 Watching for file changes with StatReloader
 Performing system checks...
 
@@ -193,8 +208,10 @@ You should now be up and running!
 ***
 
 ## Root directory
+>
 >Note: If all went well, your root directory should now look like this
-```
+
+```bash
 drf_course\  <--This is the root directory
     backend\
         core\ <-- New core app
