@@ -1,4 +1,5 @@
 # Django Rest Framework (DRF) Course - Module 5
+
 This is my DRF course. I hope you like it.
 
 > These notes follow on from steps/module_4.md
@@ -6,7 +7,9 @@ This is my DRF course. I hope you like it.
 ***
 
 ## Current root directory
+
 Your root directory should look like the following.
+
 ```
 drf_course\  <--This is the root directory
     backend\
@@ -48,14 +51,16 @@ drf_course\  <--This is the root directory
     >README.md
     >server.py
 ```
+
 If in doubt, run the following git commands:
-```
+
+```bash
 git checkout module_5
 git pull origin module_5
 ```
 
-
 ## Steps/Commands
+>
 >Note: Please 'cd' into the root directory and fire up your virtual environment!
 
 As I mentioned at the start of this course. This app will use token authentication to protect some of our endpoints. DRF makes this very easy.
@@ -64,13 +69,13 @@ Lets begin.
 
 1) New app - We will apply token authentication on our ecommerce endpoints. However, we haven't created the app. Go ahead and create an ecommerce app with the following command.
 
-```
+```bash
 python manage.py startapp ecommerce
 ```
 
 2) Settings - Open /drf_course/settings.py and replace the REST_FRAMEWORK with the following code. Notice the new DEFAULT_AUTHENTICATION_CLASSES.
 
-```
+```python
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'rest_framework_json_api.exceptions.exception_handler',
     'DEFAULT_PARSER_CLASSES': (
@@ -99,7 +104,8 @@ REST_FRAMEWORK = {
 ```
 
 Now change INSTALLED_APPS to the following.
-```
+
+```python
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -115,9 +121,10 @@ INSTALLED_APPS = [
     'ecommerce', #New app
 ]
 ```
+
 3) URL's - We now need to add a new endpoint to our urlconf file. Replace /drf_course/urls.py with the following code.
 
-```
+```python
 from django.urls import path
 from django.contrib import admin
 from core import views as core_views
@@ -136,7 +143,8 @@ urlpatterns += [
 ```
 
 4) Migrate - You now need to migrate database changes. Use following code.
-```
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
@@ -144,7 +152,7 @@ python manage.py migrate
 4) Signals - We need a mechanism to create a token for every user that signs up to our app. This token is what will be returned when we call the new endpoint. Go ahead and create a new file in /ecommerce and call it signals.py.
 Use the following code in the new file.
 
-```
+```python
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
@@ -155,8 +163,10 @@ def report_uploaded(sender, instance, created, **kwargs):
     if created:
         Token.objects.create(user=instance)
 ```
+
 Now open /ecommerce/app.py and add the following code.
-```
+
+```python
 from django.apps import AppConfig
 
 
@@ -168,11 +178,12 @@ class EcommerceConfig(AppConfig):
         import ecommerce.signals
 ```
 
-
 5) Create a user - Go ahead and create a new superuser. This will server 2 purposes. We we gain access to the built in Django admin page and we will also create a new token. Open a new terminal and use the following code.
-```
+
+```bash
 python manage.py createsuperuser
 ```
+
 Add a username, email and password.
 
 6) Call the endpoint - You can call the new endpoint with the following commands. With any luck, you will receive a new token ID in the response.
@@ -210,7 +221,9 @@ X-Frame-Options: DENY
 ***
 
 ## Root directory
+>
 >Note: If all went well, your root directory should now look like this
+
 ```
 drf_course\  <--This is the root directory
     backend\
@@ -263,5 +276,6 @@ drf_course\  <--This is the root directory
     >README.md
     >server.py
 ```
+
 ***
 ***
