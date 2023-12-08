@@ -1,4 +1,5 @@
 # Django Rest Framework (DRF) Course - Module 4
+
 This is my DRF course. I hope you like it.
 
 > These notes follow on from steps/module_3.md
@@ -6,7 +7,9 @@ This is my DRF course. I hope you like it.
 ***
 
 ## Current root directory
+
 Your root directory should look like the following.
+
 ```
 drf_course\  <--This is the root directory
     backend\
@@ -48,20 +51,24 @@ drf_course\  <--This is the root directory
     >README.md
     >server.py
 ```
+
 If in doubt, run the following git commands:
+
 ```
 git checkout module_4
 git pull origin module_4
 ```
 
 ## Steps/Commands
+>
 >Note: Please 'cd' into the root directory and fire up your virtual environment!
 
 In the last module, we built a '/contact/' end point for users to get in touch with us. It seems to work okay but let's double down on testing.
 In this module, we will write some unit tests to test our new endpoint.
 
 1) Unit tests - Copy the following code into /core/tests.py
-```
+
+```python
 from . models import Contact
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
@@ -159,11 +166,11 @@ class ContactTestCase(APITestCase):
 
 2) Run tests - Go ahead and run our new tests.
 
-```
+```bash
 python manage.py test
 ```
 
-3) Call API - We're ready to call the 'contact' endpoint. I like to user (Curl)[https://curl.se/] or (Httpie)[https://httpie.io/].
+3) Call API - We're ready to call the 'contact' endpoint. I like to user [Curl](https://curl.se/) or [Httpie](https://httpie.io/).
 
 ```
 curl -XPOST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "message": "test", "email":"bobby@didcoding.com"}' 'http://api:8000/contact/'
@@ -173,12 +180,14 @@ curl -XPOST -H "Content-type: application/json" -d '{"name": "Bobby Stearman", "
 http post http://api:8000/contact/ name='Bobby Stearman' message='This is a test' email=bobby@didcoding.com
 ```
 
-
 4) Check database - You can now use the Django shell to check the database for our new contact entry. Open Django shell with the following command.
-```
+
+```bash
 python manage.py shell
 ```
+
 Now use the following command and check the database for our new entry
+
 ```
 from core.models import Contact
 c = Contact.objects.last()
@@ -190,7 +199,9 @@ Perfect - Everything is working as expected
 ***
 
 ## Root directory
+>
 >Note: If all went well, your root directory should now look like this
+
 ```
 drf_course\  <--This is the root directory
     backend\
