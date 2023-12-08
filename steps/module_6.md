@@ -1,4 +1,5 @@
 # Django Rest Framework (DRF) Course - Module 6
+
 This is my DRF course. I hope you like it.
 
 > These notes follow on from steps/module_5.md
@@ -6,7 +7,9 @@ This is my DRF course. I hope you like it.
 ***
 
 ## Current root directory
+
 Your root directory should look like the following.
+
 ```
 drf_course\  <--This is the root directory
     backend\
@@ -59,12 +62,13 @@ drf_course\  <--This is the root directory
     >README.md
     >server.py
 ```
+
 If in doubt, run the following git commands:
-```
+
+```bash
 git checkout module_6
 git pull origin module_6
 ```
-
 
 ## Steps/Commands
 
@@ -77,7 +81,8 @@ We will build an e-commerce app with an item and order endpoint. Users will be a
 We need models, routers, serializers and view-sets/api-view! Let's not waist any time...
 
 1) Model - Go ahead and open /ecommerce/models.py and paste in the following code.
-```
+
+```python
 from django.db import models
 from django.contrib.auth.models import User
 from utils.model_abstracts import Model
@@ -167,7 +172,8 @@ class Order(
 ```
 
 2) Serializers - Go ahead and create a new file in /ecommerce and call it serializers.py. Use the following code.
-```
+
+```python
 
 from collections import OrderedDict
 from .models import Item , Order
@@ -220,9 +226,10 @@ class OrderSerializer(serializers.ModelSerializer):
             raise NotEnoughStockException
         return res
 ```
+
 3) Register - Let's go ahead and register our new models to the built in admin pages. Open /ecommerce/admin.py and paste in the following code.
 
-```
+```python
 from django.contrib import admin
 from . import models
 
@@ -238,7 +245,8 @@ class OrderAdmin(admin.ModelAdmin):
 ```
 
 4) Migrate - We can now migrate the models to the database. Use the following code.
-```
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
@@ -247,7 +255,9 @@ python manage.py migrate
 ***
 
 ## Root directory
+>
 >Note: If all went well, your root directory should now look like this
+
 ```
 drf_course\  <--This is the root directory
     backend\
